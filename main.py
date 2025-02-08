@@ -33,7 +33,7 @@ def scrape_epub(epub_path):
 
 def main():
     parser = argparse.ArgumentParser(description="Scrape an EPUB file.")
-    parser.add_argument("--epub-path", type=str, help="Path to the EPUB file.")
+    parser.add_argument("--epub-file", type=str, help="Path to the EPUB file.")
     parser.add_argument("--output-file", type=str, help="Path to the output file.")
     args = parser.parse_args()
     title, sections, plain_text = scrape_epub(args.epub_path)

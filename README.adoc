@@ -41,21 +41,11 @@ pip install -r requirements.txt
 2. Run the conversion script:
 [source,bash]
 ----
-python main.py
+python main.py --epub-file {epub-path} --outpute-file
 ----
 
 3. The converted AsciiDoc file will be generated as `output.adoc`
 
-== Input/Output
-
-=== Input
-* The tool expects an EPUB file named `input.epub` in the project directory
-* Supports standard EPUB format with HTML content
-
-=== Output
-* Generates an AsciiDoc file named `output.adoc`
-* Preserves document structure with proper AsciiDoc formatting
-* Maintains section titles and content hierarchy
 
 == Example Output Structure
 
