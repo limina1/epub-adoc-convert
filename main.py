@@ -2,6 +2,7 @@ import ebooklib
 from ebooklib import epub
 from bs4 import BeautifulSoup
 import re
+import argparse
 
 
 def scrape_epub(epub_path):
@@ -30,25 +31,20 @@ def scrape_epub(epub_path):
     return title, sections, plain_text
 
 
-# Usage
-epub_path = "input.epub"
-title, sections, plain_text = scrape_epub(epub_path)
+def main():
+    parser = argparse.ArgumentParser(description="Scrape an EPUB file.")
+    parser.add_argument("--epub-path", type=str, help="Path to the EPUB file.")
+    parser.add_argument("--output-file", type=str, help="Path to the output file.")
+    args = parser.parse_args()
+    title, sections, plain_text = scrape_epub(args.epub_path)
+    print(f"Book Title: {title}")
+    print(f"Number of sections: {len(sections)}")
+    print(f"Number of plain text entries: {len(plain_text)}")
+    output_file = args.output_file
+    with open(output_file, "w", encoding="utf-8") as f:
+        for entry in plain_text:
+            f.write(f"= {entry['title']}\n{entry['text']}\n\n")
 
-print(f"Book Title: {title}")
-print(f"Number of sections: {len(sections)}")
-print(f"Number of plain text entries: {len(plain_text)}")
 
-# Print the first section to verify
-num = 3
-if sections:
-    print("\nFirst section:")
-    print(f"Title: {sections[num]['title']}")
-    print(
-        f"Text preview: {sections[num]['text'][:200]}..."
-    )  # Print first 200 characters of text
-
-# Save plain text to a file
-output_file = "output.adoc"
-with open(output_file, "w", encoding="utf-8") as f:
-    for entry in plain_text:
-        f.write(f"= {entry['title']}\n{entry['text']}\n\n")
+if __name__ == "__main__":
+    main()
